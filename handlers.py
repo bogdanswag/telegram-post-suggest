@@ -1,19 +1,19 @@
-import keyboards
-
-from aiogram import Router, F, Bot
+from aiogram import Router, F
 from aiogram.filters import Command, StateFilter
 from aiogram.types import Message, FSInputFile, ContentType
-from aiogram.fsm.state import StatesGroup, State
+from aiogram.fsm.state import StatesGroup, State, default_state
 from aiogram.fsm.context import FSMContext
+from keyboards import suggest_post
 
 
 router = Router()
 
 
 @router.message(Command('start'))
-await message.answer(
-        'Для отправки поста в предложку используй "Предложить пост"',
-        reply_markup=suggest_post)
+async def cmd_start(message: Message):
+    await message.answer(
+            'Для отправки поста в предложку используй "Предложить пост"',
+            reply_markup=suggest_post)
 
 
 class OrderSuggesting(StatesGroup):
@@ -72,12 +72,16 @@ async def review_posts(message: Message, state: FSMContext):
         review_message = f'Предложенный пост:\nТекст: {text}'
 
         if text:
+            pass
             # сохранение текста в бд
         if photo:
+            pass
             # сохранение айди фото в бд
         if video:
+            pass
             # сохранение айди видео в бд
         if document:
+            pass
             # сохранение айди документа в бд
     else:
         await message.answer('Нет предложенных постов.')
